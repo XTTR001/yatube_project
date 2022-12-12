@@ -1,15 +1,23 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.conf import settings
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, render
 
-def index(request):
-    context = {
-        'title' : 'Это главная страница проекта Yatube'
-    }
-    return render(request, 'posts/index.html', context=context)
+from posts.models import Group, Post
 
-def group_posts(request, slug):
-    context = {
-        'title' : 'Здесь будет информация о группах проекта Yatube'
-    }
-    return render(request, 'posts/group_list.html', context=context)
+
+def index(request: HttpRequest) -> HttpResponse:
+    posts = Post.objects.select_related('author', 'group')[
+        : settings.POSTS_PAGE_LIMIT
+    ]
+
+    return render(request, 'posts/index.html', context={'posts': posts})
+
+
+def group_posts(request: HttpRequest, slug: str) -> HttpResponse:
+    group = get_object_or_404(Group, slug=slug)
+    posts = group.posts.select_related('author')[: settings.POSTS_PAGE_LIMIT]
+    return render(
+        request,
+        'posts/group_list.html',
+        context={'posts': posts, 'group': group},
+    )
