@@ -1,14 +1,11 @@
 from django.contrib import admin
 
 from posts.models import Group, Post
-
-
-class BaseAdmin(admin.ModelAdmin):
-    empty_value_display = '-пусто-'
+from yatube.admin import BaseAdmin
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(BaseAdmin):
     list_display = ('pk', 'text', 'pub_date', 'author', 'group')
     search_fields = ('text',)
     list_filter = ('pub_date',)
@@ -16,6 +13,6 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Group)
-class GroupAdmin(admin.ModelAdmin):
+class GroupAdmin(BaseAdmin):
     list_display = ('pk', 'title', 'slug')
     search_fields = ('title', 'slug')

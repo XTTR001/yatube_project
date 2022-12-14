@@ -8,8 +8,6 @@ SECRET_KEY = 'django-insecure-le3#!'
 
 DEBUG = True
 
-ALLOWED_HOSTS: List[str] = []
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -94,11 +92,11 @@ INTERNAL_IPS = [
     # ...
 ]
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_TZ = False
 

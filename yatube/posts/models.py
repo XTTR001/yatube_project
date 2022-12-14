@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.conf import settings
 
-from utlis import truncatechars
+from yatube.utlis import truncatechars
 
 User = get_user_model()
 
@@ -12,27 +13,32 @@ class Group(models.Model):
     description = models.TextField()
 
     class Meta:
-        verbose_name = 'Группа'
-        verbose_name_plural = 'Группы'
+        verbose_name = 'группа'
+        verbose_name_plural = 'группы'
 
     def __str__(self) -> str:
-        return truncatechars(self.title)
+        return truncatechars(self.title, settings.SHOWTEXT_LENGTH)
 
 
 class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE,)
-    group = models.ForeignKey(
-        Group, blank=True, null=True, on_delete=models.CASCADE,
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
     )
-    verbose_name = 'Post'
+    group = models.ForeignKey(
+        Group,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     class Meta:
         default_related_name = 'posts'
         ordering = ('-pub_date',)
-        verbose_name = 'Пост'
-        verbose_name_plural = 'Посты'
+        verbose_name = 'пост'
+        verbose_name_plural = 'посты'
 
     def __str__(self) -> str:
-        return truncatechars(self.text)
+        return truncatechars(self.text, settings.SHOWTEXT_LENGTH)

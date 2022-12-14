@@ -6,9 +6,10 @@ from posts.models import Group, Post
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    posts = Post.objects.select_related('author', 'group')[
-        : settings.POSTS_PAGE_LIMIT
-    ]
+    posts = Post.objects.select_related(
+                                        'author',
+                                        'group'
+                                        )[: settings.POSTS_PAGE_LIMIT]
 
     return render(request, 'posts/index.html', context={'posts': posts})
 
