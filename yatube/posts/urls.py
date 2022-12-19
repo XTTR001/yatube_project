@@ -1,7 +1,7 @@
 from django.urls import path
 
-from posts.views import index, group_posts
 from posts.apps import PostsConfig
+from posts.views import group_posts, index
 
 app_name = PostsConfig.name
 

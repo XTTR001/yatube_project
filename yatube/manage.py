@@ -1,10 +1,16 @@
 #!/usr/bin/env python
+
 import os
 import sys
 
 
 def main() -> None:
-    """Run administrative tasks."""
+    """Run administrative tasks.
+
+    Raises:
+        ImportError: if couldn't find Django.
+        Try to activate venv or make pip install django
+    """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'yatube.settings')
     try:
         from django.core.management import execute_from_command_line
