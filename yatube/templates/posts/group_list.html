@@ -9,7 +9,7 @@
       {{ group.description }}
     </p>
     {% for post in page_obj %}
-      {% include "posts/includes/post.html" %}
+      {% include "posts/includes/post.html" with author=post.author %}
       {% if not forloop.last %}
         <hr>
       {% endif %}

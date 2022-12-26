@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if is_edit %}
+        Сохранить
+    {% else %}
+        Добавить
+    {% endif %}
+{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 p-5">
+        <div class="card">
+          <div class="card-header">
+            Новый пост
+          </div>
+          <div class="card-body">
+              {% include 'posts/includes/form_inner.html'%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
