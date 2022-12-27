@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
-
+from django.shortcuts import get_object_or_404, redirect, render
 
 from posts.forms import PostForm
 from posts.models import Group, Post, User
@@ -13,10 +12,11 @@ def get_page_obj(request, objects, items_per_page):
     page_number = request.GET.get('page')
     return paginator.get_page(page_number)
 
+
 def index(request: HttpRequest) -> HttpResponse:
     post_list = Post.objects.select_related(
-         'author',
-         'group',
+        'author',
+        'group',
     )
 
     page_obj = get_page_obj(request, post_list, 10)
@@ -69,8 +69,9 @@ def post_detail(request, post_id):
             'author_posts_count': Post.objects.filter(
                 author=author_id,
             ).count()
-         }
+        }
     )
+
 
 @login_required
 def post_create(request):

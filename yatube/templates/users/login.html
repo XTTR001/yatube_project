@@ -9,16 +9,10 @@
           Войти на сайт
         </div>
         <div class="card-body">
-          {% include 'users/includes/form_errors.html' %}
-          <form method="post"
-            {% if action_url %}
-              action="{% url action_url %}"
-            {% endif %}
-          >
-            {% include 'users/includes/form_inner.html' with button_text='Войти' page='login' %}
-          </form>
-        </div> <!-- card body -->
-      </div> <!-- card -->
-    </div> <!-- col -->
-  </div> <!-- row -->
+          {% url 'users:login' as action_link %}
+          {% include 'users/includes/form_inner.html' with button_text='Войти' page='login' %}
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

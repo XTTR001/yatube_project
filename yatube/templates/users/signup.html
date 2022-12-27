@@ -7,14 +7,11 @@
         <div class="card">
           <div class="card-header">Зарегистрироваться</div>
           <div class="card-body">
-
-            {% include 'users/includes/form_errors.html' %}
-            <form method="post" action="{% url 'users:signup' %}">
-              {% include 'users/includes/form_inner.html' with button_text='Зарегистрироваться' %}
-            </form>
-          </div> <!-- card body -->
-        </div> <!-- card -->
-      </div> <!-- col -->
-    </div> <!-- row -->
+            {% url 'users:signup' as action_link %}
+            {% include 'users/includes/form_inner.html' with button_text='Зарегистрироваться' %}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
