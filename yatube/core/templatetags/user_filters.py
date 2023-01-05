@@ -6,4 +6,4 @@ register = template.Library()
 
 @register.filter
 def addclass(field: BoundField, css) -> BoundField:
-    return field.as_widget(attrs={'class': css,},)
+    return field.as_widget(attrs={'class': css})

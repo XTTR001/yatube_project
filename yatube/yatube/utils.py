@@ -3,7 +3,9 @@ from django.core.paginator import Paginator, Page
 from django.http import HttpRequest
 
 
-def truncatechars(chars: str, max_length: int = settings.SHOWTEXT_LENGTH) -> str:
+def truncatechars(
+    chars: str, max_length: int = settings.SHOWTEXT_LENGTH
+) -> str:
     return chars[:max_length] + '…' if len(chars) > max_length else chars
 
 

@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -115,4 +114,3 @@ EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 DEFAULT_BIG_FIELD = 'django.db.models.BigAutoField'
 
 PAGE_SIZE = 10
-

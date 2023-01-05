@@ -45,15 +45,8 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     post = get_object_or_404(
         Post.objects.select_related('author', 'group',), pk=pk
     )
-    author_id = post.author.id
 
-    return render(
-        request,
-        'posts/post_detail.html',
-        {
-            'post': post,
-        },
-    )
+    return render(request, 'posts/post_detail.html', {'post': post,},)
 
 
 @login_required
