@@ -46,7 +46,7 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
         Post.objects.select_related('author', 'group',), pk=pk
     )
 
-    return render(request, 'posts/post_detail.html', {'post': post,},)
+    return render(request, 'posts/post_detail.html', {'post': post})
 
 
 @login_required
