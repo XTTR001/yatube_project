@@ -7,8 +7,8 @@
         <div class="card">
           <div class="card-header">Зарегистрироваться</div>
           <div class="card-body">
-            {% url 'users:signup' as action_link %}
-            {% include 'users/includes/form_inner.html' with button_text='Зарегистрироваться' %}
+            {% url "users:signup" as action_link %}
+            {% include "users/includes/form_inner.html" with button_text="Зарегистрироваться" %}
           </div>
         </div>
       </div>

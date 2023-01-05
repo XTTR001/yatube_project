@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os
 import sys
 
@@ -9,7 +7,7 @@ def main() -> None:
 
     Raises:
         ImportError: if couldn't find Django.
-        Try to activate venv or make pip install django
+            Try to activate venv or make pip install django
     """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'yatube.settings')
     try:

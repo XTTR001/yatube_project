@@ -1,64 +1,50 @@
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from posts.forms import PostForm
 from posts.models import Group, Post, User
-
-
-def get_page_obj(request, objects, items_per_page):
-    paginator = Paginator(objects, items_per_page)
-    page_number = request.GET.get('page')
-    return paginator.get_page(page_number)
+from yatube.utils import get_page_obj
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    post_list = Post.objects.select_related(
-        'author',
-        'group',
-    )
+    posts = Post.objects.select_related('author', 'group',)
 
-    page_obj = get_page_obj(request, post_list, 10)
+    page = get_page_obj(request, posts)
 
-    return render(request, 'posts/index.html', context={'page_obj': page_obj})
+    return render(request, 'posts/index.html', context={'page_obj': page})
 
 
 def group_posts(request: HttpRequest, slug: str) -> HttpResponse:
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.posts.select_related(
-        'author',
-    )
+    posts = group.posts.select_related('author',)
 
-    page_obj = get_page_obj(request, post_list, 10)
+    page = get_page_obj(request, posts)
 
     return render(
         request,
         'posts/group_list.html',
-        context={'page_obj': page_obj, 'group': group},
+        context={'page_obj': page, 'group': group},
     )
 
 
-def profile(request, username) -> HttpResponse:
+def profile(request: HttpRequest, username: str) -> HttpResponse:
     author = get_object_or_404(User, username=username)
-    post_list = author.posts.select_related(
-        'group'
-    )
+    posts = author.posts.select_related('group')
 
-    page_obj = get_page_obj(request, post_list, 10)
+    page = get_page_obj(request, posts)
 
     return render(
         request,
         'posts/profile.html',
-        context={'page_obj': page_obj, 'author': author}
+        context={'page_obj': page, 'author': author},
     )
 
 
-def post_detail(request, post_id):
-    post = get_object_or_404(Post.objects.select_related(
-        'author',
-        'group',
-    ), pk=post_id)
+def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
+    post = get_object_or_404(
+        Post.objects.select_related('author', 'group',), pk=pk
+    )
     author_id = post.author.id
 
     return render(
@@ -66,36 +52,30 @@ def post_detail(request, post_id):
         'posts/post_detail.html',
         {
             'post': post,
-            'author_posts_count': Post.objects.filter(
-                author=author_id,
-            ).count()
-        }
+        },
     )
 
 
 @login_required
-def post_create(request):
+def post_create(request: HttpRequest) -> HttpResponse:
     form = PostForm(request.POST or None)
 
     if not form.is_valid():
         return render(request, 'posts/create_post.html', {'form': form})
 
-    post = form.save(commit=False)
-    post.author = request.user
-    post.save()
-    return redirect(f'/profile/{post.author.username}/')
+    form.instance.author = request.user
+    form.save()
+    return redirect('posts:profile', username=request.user.username)
 
 
 @login_required
-def post_edit(request, post_id):
-
-    post = get_object_or_404(Post.objects.select_related(
-        'author',
-        'group',
-    ), pk=post_id)
+def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
+    post = get_object_or_404(
+        Post.objects.select_related('author', 'group',), pk=pk
+    )
 
     if request.user != post.author:
-        return redirect(f'/posts/{post_id}/')
+        return redirect('posts:post_detail', pk=pk)
 
     form = PostForm(instance=post, data=request.POST or None)
 
@@ -103,7 +83,8 @@ def post_edit(request, post_id):
         return render(
             request,
             'posts/create_post.html',
-            {'form': form, 'is_edit': True, 'post_id': post_id})
+            {'form': form, 'is_edit': True, 'post_id': pk},
+        )
 
     form.save()
-    return redirect(f'/posts/{post_id}/')
+    return redirect('posts:post_detail', pk=pk)

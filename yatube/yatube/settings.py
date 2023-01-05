@@ -14,10 +14,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'about.apps.AboutConfig',
+    'core.apps.CoreConfig',
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
-    'core.apps.CoreConfig',
-    'about.apps.AboutConfig',
 ]
 
 MIDDLEWARE = [
@@ -32,7 +32,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'yatube.urls'
 
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATES_DIR = BASE_DIR / 'templates'
 
 TEMPLATES = [
     {
@@ -55,7 +55,7 @@ WSGI_APPLICATION = 'yatube.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     },
 }
 
@@ -95,7 +95,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / 'static',
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -110,4 +110,9 @@ LOGIN_REDIRECT_URL = 'posts:index'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+
+DEFAULT_BIG_FIELD = 'django.db.models.BigAutoField'
+
+PAGE_SIZE = 10
+

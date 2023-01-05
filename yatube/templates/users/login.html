@@ -9,8 +9,8 @@
           Войти на сайт
         </div>
         <div class="card-body">
-          {% url 'users:login' as action_link %}
-          {% include 'users/includes/form_inner.html' with button_text='Войти' page='login' %}
+          {% url "users:login" as action_link %}
+          {% include "users/includes/form_inner.html" with button_text="Войти" page="login" %}
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}
   {% if is_edit %}
-    Сохранить
+    Редактировать пост
   {% else %}
-    Добавить
+    Новый пост
   {% endif %}
 {% endblock %}
 {% block content %}
@@ -15,7 +15,8 @@
             Новый пост
           </div>
           <div class="card-body">
-            {% include 'posts/includes/form_inner.html'%}
+              {% url "posts:post_create" as action_link %}
+            {% include "includes/form_inner.html" with button_text='Добавить'%}
           </div>
         </div>
       </div>
