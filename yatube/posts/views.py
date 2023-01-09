@@ -8,7 +8,7 @@ from yatube.utils import get_page_obj
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    posts = Post.objects.select_related('author', 'group',)
+    posts = Post.objects.select_related('author', 'group')
 
     page = get_page_obj(request, posts)
 
@@ -17,7 +17,7 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def group_posts(request: HttpRequest, slug: str) -> HttpResponse:
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.select_related('author',)
+    posts = group.posts.select_related('author')
 
     page = get_page_obj(request, posts)
 
@@ -43,7 +43,7 @@ def profile(request: HttpRequest, username: str) -> HttpResponse:
 
 def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     post = get_object_or_404(
-        Post.objects.select_related('author', 'group',), pk=pk
+        Post.objects.select_related('author', 'group'), pk=pk
     )
 
     return render(request, 'posts/post_detail.html', {'post': post})
@@ -64,7 +64,7 @@ def post_create(request: HttpRequest) -> HttpResponse:
 @login_required
 def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
     post = get_object_or_404(
-        Post.objects.select_related('author', 'group',), pk=pk
+        Post.objects.select_related('author', 'group'), pk=pk
     )
 
     if request.user != post.author:

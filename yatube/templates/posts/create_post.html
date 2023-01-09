@@ -12,7 +12,11 @@
       <div class="col-md-8 p-5">
         <div class="card">
           <div class="card-header">
-            Новый пост
+            {% if is_edit %}
+                Редактировать пост
+            {% else %}
+                Новый пост
+            {% endif %}
           </div>
           <div class="card-body">
               {% url "posts:post_create" as action_link %}

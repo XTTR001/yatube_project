@@ -10,7 +10,7 @@ class Group(models.Model):
     title_max_lenght = 200
 
     title = models.CharField(
-        max_length=title_max_lenght, verbose_name='название'
+        max_length=title_max_lenght, verbose_name='название',
     )
     slug = models.SlugField(unique=True, verbose_name='slug')
     description = models.TextField(verbose_name='описание')
@@ -26,10 +26,10 @@ class Group(models.Model):
 class Post(models.Model):
     text = models.TextField(verbose_name='текст')
     pub_date = models.DateTimeField(
-        auto_now_add=True, verbose_name='дата публикации'
+        auto_now_add=True, verbose_name='дата публикации',
     )
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name='автор'
+        User, on_delete=models.CASCADE, verbose_name='автор',
     )
     group = models.ForeignKey(
         Group,

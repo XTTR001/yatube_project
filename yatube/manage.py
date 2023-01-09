@@ -3,20 +3,20 @@ import sys
 
 
 def main() -> None:
-    """Run administrative tasks.
+    """Запуск административных задач.
 
-    Raises:
-        ImportError: if couldn't find Django.
-            Try to activate venv or make pip install django
+    Исключения:
+        ImportError: если не получилось найти Django.
+            Попробуйте активировать venv или установите: pip install django
     """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'yatube.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            'available on your PYTHONPATH environment variable? Did you '
-            'forget to activate a virtual environment?',
+            "Не получилось импортировать Django. Вы уверены, что Django "
+            'установлен и доступен в PYTHONPATH перменной среды? Может быть '
+            'вы забыли активировать виртуальное окружение?',
         ) from exc
     execute_from_command_line(sys.argv)
 
