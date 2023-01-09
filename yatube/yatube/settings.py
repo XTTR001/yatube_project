@@ -107,7 +107,7 @@ LOGIN_REDIRECT_URL = 'posts:index'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+EMAIL_FILE_PATH =  BASE_DIR / 'sent_emails'
 
 DEFAULT_BIG_FIELD = 'django.db.models.BigAutoField'
 

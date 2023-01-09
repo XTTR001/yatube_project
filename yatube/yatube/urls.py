@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import include, path
 
-from posts.apps import PostsConfig
 from about.apps import AboutConfig
+from posts.apps import PostsConfig
 from users.apps import UsersConfig
 
 urlpatterns = [
