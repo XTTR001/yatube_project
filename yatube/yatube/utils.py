@@ -7,7 +7,7 @@ from django.http import HttpRequest
 def truncatechars(
     chars: str, max_length: int = settings.SHOWTEXT_LENGTH,
 ) -> str:
-    return chars[:max_length] + '…' if len(chars) > max_length else chars
+    return chars[:max_length - 3] + '...' if len(chars) > max_length else chars
 
 
 def get_page_obj(

@@ -6,6 +6,13 @@ SECRET_KEY = 'django-insecure-le3#!'
 
 DEBUG = True
 
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    'testserver',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -99,7 +106,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SHOWTEXT_LENGTH = 30
+SHOWTEXT_LENGTH = 15
 
 LOGIN_URL = 'users:login'
 
@@ -107,7 +114,7 @@ LOGIN_REDIRECT_URL = 'posts:index'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-EMAIL_FILE_PATH =  BASE_DIR / 'sent_emails'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 DEFAULT_BIG_FIELD = 'django.db.models.BigAutoField'
 
